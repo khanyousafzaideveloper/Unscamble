@@ -10,15 +10,21 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @Preview
-fun GameScreen(){
+fun GameScreen(
+    gameViewModel: GameViewModel = viewModel()
+){
+    val gameUiState by gameViewModel.uiState.collectAsState()
     Column (
         modifier = Modifier,
         verticalArrangement = Arrangement.Center,
@@ -29,9 +35,10 @@ fun GameScreen(){
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            val currentScrambledWord = gameUiState.currentScrambledword
             var a : Int = 0
             Text(text = " $a / 10" )
-            Text(text = "scrambleun")
+            Text(text = currentScrambledWord)
             Text(text = "Unscamble the words using all letters")
 
             OutlinedTextField(value = "", onValueChange = { } )
