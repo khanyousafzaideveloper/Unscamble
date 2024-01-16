@@ -33,11 +33,12 @@ fun GameScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             val currentScrambledWord = gameUiState.currentScrambledword
+            val userGuess = gameViewModel.userGuess
             var a : Int = 0
             Text(text = " $a / 10" )
             Text(text = currentScrambledWord)
             Text(text = "Unscramble the words using all letters")
-            OutlinedTextField(value = "", onValueChange = { }, keyboardActions = KeyboardActions(onDone = {  } ) )
+            OutlinedTextField(value = userGuess, onValueChange = { gameViewModel.updateUserGuess(it)}, keyboardActions = KeyboardActions(onDone = {  } ) )
         }
         Button(onClick = { /*TODO*/ }) {
             Text(text = "Submit")
