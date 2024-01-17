@@ -32,10 +32,10 @@ fun GameScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            val currentScrambledWord = gameUiState.currentScrambledword
+            val currentScrambledWord = gameUiState.currentScrambledWord
             val userGuess = gameViewModel.userGuess
             var a : Int = 0
-            Text(text = " $a / 10" )
+            Text(text = "${gameUiState.currentWordCount} / 10" )
             Text(text = currentScrambledWord)
             Text(text = "Unscramble the words using all letters")
             OutlinedTextField(

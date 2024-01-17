@@ -1,6 +1,8 @@
 package com.example.unscramble
 
 data class GameUiState(
-    val currentScrambledword: String ="",
-    val isGuessedWordWrong: Boolean = false
+    val currentScrambledWord: String ="",
+    val currentWordCount: Int = 1,
+    val isGuessedWordWrong: Boolean = false,
+    val score: Int = 0
 )
