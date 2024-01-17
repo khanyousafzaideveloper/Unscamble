@@ -3,6 +3,7 @@ package com.example.unscramble
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
@@ -12,6 +13,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 
@@ -40,8 +42,10 @@ fun GameScreen(
             Text(text = "Unscramble the words using all letters")
             OutlinedTextField(
                 value = userGuess,
+                singleLine = true,
                 onValueChange = { gameViewModel.updateUserGuess(it)},
                 keyboardActions = KeyboardActions(onDone = { gameViewModel.checkUserGuess() } ),
+                keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
                 isError = gameUiState.isGuessedWordWrong,
                 label = { if(gameUiState.isGuessedWordWrong){
                     Text(text = "Wrong Guess")}
@@ -53,7 +57,7 @@ fun GameScreen(
         Button(onClick = { gameViewModel.checkUserGuess() }) {
             Text(text = "Submit")
         }
-        Button(onClick = { /*TODO*/ }) {
+        Button(onClick = { gameViewModel.skipWord() }) {
             Text(text = "Skip")
         }
         var b : Int = 0
