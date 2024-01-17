@@ -38,9 +38,19 @@ fun GameScreen(
             Text(text = " $a / 10" )
             Text(text = currentScrambledWord)
             Text(text = "Unscramble the words using all letters")
-            OutlinedTextField(value = userGuess, onValueChange = { gameViewModel.updateUserGuess(it)}, keyboardActions = KeyboardActions(onDone = {  } ) )
+            OutlinedTextField(
+                value = userGuess,
+                onValueChange = { gameViewModel.updateUserGuess(it)},
+                keyboardActions = KeyboardActions(onDone = { gameViewModel.checkUserGuess() } ),
+                isError = gameUiState.isGuessedWordWrong,
+                label = { if(gameUiState.isGuessedWordWrong){
+                    Text(text = "Wrong Guess")}
+                else{
+                    Text(text = "Enter Your Word")
+                }}
+            )
         }
-        Button(onClick = { /*TODO*/ }) {
+        Button(onClick = { gameViewModel.checkUserGuess() }) {
             Text(text = "Submit")
         }
         Button(onClick = { /*TODO*/ }) {
