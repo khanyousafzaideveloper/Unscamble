@@ -34,9 +34,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.modifier.modifierLocalMapOf
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
@@ -65,7 +67,7 @@ fun GameScreen(
             val currentScrambledWord = gameUiState.currentScrambledWord
             val userGuess = gameViewModel.userGuess
             Row(modifier=Modifier.padding(16.dp)) {
-                Text(text = "Score: ${gameUiState.score}" , fontWeight = FontWeight(800))
+                Text(text = "Score: ${gameUiState.score}" , fontWeight = FontWeight(800) , fontStyle= FontStyle(344))
                 Spacer(modifier = Modifier.weight(2f))
                 Box(
                     Modifier
@@ -81,7 +83,10 @@ fun GameScreen(
             Text(text = "Unscramble the words using all letters")
             OutlinedTextField(
                 value = userGuess,
-                modifier = Modifier.fillMaxWidth() .padding(16.dp) .wrapContentHeight(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+                    .wrapContentHeight(),
                 singleLine = true,
                 onValueChange = { gameViewModel.updateUserGuess(it)},
                 keyboardActions = KeyboardActions(onDone = { gameViewModel.checkUserGuess() } ),
@@ -99,7 +104,10 @@ fun GameScreen(
                 Text(text = "Skip")
             }
 
-            Button(onClick = { gameViewModel.checkUserGuess() }, Modifier.weight(1f)
+            Button(onClick = { gameViewModel.checkUserGuess() },
+                Modifier
+                    .weight(1f)
+                    .padding(start = 8.dp)
             ) {
                 Text(text = "Submit")
             }
@@ -118,8 +126,12 @@ private fun FinalScoreDialog(
     val activity = (LocalContext.current as Activity)
 
     AlertDialog(
-        onDismissRequest = {  },
-        title = { Text(text = "Congratulations")},
+        onDismissRequest = { },
+        title = {
+            if(score>120){ Text(text = "Congratulations")}
+            else if(score in 81..119){ Text(text = "Good Try")}
+            else{ Text(text = "Try Again")}
+                },
         text = { Text(text = "You Scored: $score")},
         dismissButton = { TextButton(onClick = { activity.finish() }) {
             Text(text = "Exit")
