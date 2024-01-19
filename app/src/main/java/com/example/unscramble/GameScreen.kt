@@ -45,6 +45,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.unscramble.data.MAX_NO_OF_WORDS
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -57,7 +58,7 @@ fun GameScreen(
         modifier = Modifier,
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally){
-        Text(text = "Unscramble", fontFamily = FontFamily.SansSerif, fontSize = 40.sp)
+        Text(text = "Unscramble", fontFamily = FontFamily.SansSerif, fontSize = 40.sp, fontWeight = FontWeight(1000))
 
         Column(modifier = Modifier,
             verticalArrangement = Arrangement.Center,
@@ -67,16 +68,9 @@ fun GameScreen(
             val currentScrambledWord = gameUiState.currentScrambledWord
             val userGuess = gameViewModel.userGuess
             Row(modifier=Modifier.padding(16.dp)) {
-                Text(text = "Score: ${gameUiState.score}" , fontWeight = FontWeight(800) , fontStyle= FontStyle(344))
+                Text(text = "Score: ${gameUiState.score}" , fontWeight = FontWeight(800))
                 Spacer(modifier = Modifier.weight(2f))
-                Box(
-                    Modifier
-                        .background(color = Color(143, 165, 133))
-                        .width(40.dp)
-                        .height(20.dp)
-                ){
-                    Text(text = "${gameUiState.currentWordCount}/ 10", fontWeight = FontWeight(800) )
-                }
+                    Text(text = "${gameUiState.currentWordCount}/ $MAX_NO_OF_WORDS", fontWeight = FontWeight(800) )
             }
 
             Text(text = currentScrambledWord, fontSize = 20.sp , fontWeight = FontWeight(600) )
